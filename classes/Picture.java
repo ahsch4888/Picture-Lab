@@ -136,6 +136,59 @@ public class Picture extends SimplePicture {
         }
     }
 
+    public int getCountRedOverValue(int value) {
+        int count = 0;
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels) {
+            for (Pixel pixelObj : rowArray) {
+                if (pixelObj.getRed() > value) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    public void setRedToHalfValueInTopHalf() {
+        Pixel[][] pixels = this.getPixels2D();
+        for (int row = 0; row < pixels.length / 2; row++) {
+            for (int col = 0; col < pixels[row].length; col++) {
+                pixels[row][col].setRed(pixels[row][col].getRed()/2);
+            }
+        }
+    }
+
+    public void clearBlueOverValue(int value) {
+        Pixel[][] pixels = this.getPixels2D();
+        for (Pixel[] rowArray : pixels) {
+            for (Pixel pixelObj : rowArray) {
+                if (pixelObj.getBlue() > value) {
+                    pixelObj.setBlue(0);
+                }
+            }
+        }
+    }
+
+    public int[] getAverageForColumn(int column) {
+        int avgRed = 0;
+        int avgGreen = 0;
+        int avgBlue = 0;
+
+        Pixel[][] pixels = this.getPixels2D();
+        for (int row = 0; row < pixels.length; row++) {
+            avgRed += pixels[row][column].getRed();
+            avgGreen += pixels[row][column].getGreen();
+            avgBlue += pixels[row][column].getBlue();
+        }
+
+        avgRed /= pixels.length;
+        avgGreen /= pixels.length;
+        avgBlue /= pixels.length;
+
+        int[] ret = {avgRed, avgGreen, avgBlue};
+        return ret;
+    }
+
     /**
      * Method that mirrors the picture around a
      * vertical mirror in the center of the picture

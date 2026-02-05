@@ -9,13 +9,18 @@
 public class PictureTester {
     public static void main(String[] args) {
 
+        // "images/beach.jpg"
         // testZeroBlue("images/beach.jpg");
         // testKeepOnlyRed("images/beach.jpg");
         // testKeepOnlyGreen("images/beach.jpg");
         // testKeepOnlyBlue("images/beach.jpg");
         // testNegate("images/beach.jpg");
         // testGrayscale("images/beach.jpg");
-        testEdgeDetection("images/swan.jpg", 10);
+        // testEdgeDetection("images/swan.jpg", 10);
+        // testGetCountRedOverValue("images/beach.jpg", 250);
+        // testSetRedToHalfValueInTopHalf("images/beach.jpg");
+        // testClearBlueOverValue("images/beach.jpg", 200);
+        testGetAverageForColumn("images/beach.jpg", 20);
     }
 
     public static void testZeroRed(String fileName) {
@@ -112,6 +117,40 @@ public class PictureTester {
                 fileName.substring(0, fileName.indexOf(".jpg")) +
                         "-modified" +
                         ".jpg");
+    }
+
+    public static void testGetCountRedOverValue(String fileName, int value) {
+        Picture image = new Picture(fileName);
+        System.out.println("In file " + fileName);
+        System.out.println("Red over " + value + ": " + image.getCountRedOverValue(value));
+        image.getCountRedOverValue(value);
+    }
+
+    public static void testSetRedToHalfValueInTopHalf(String fileName) {
+        Picture image = new Picture(fileName);
+        image.setRedToHalfValueInTopHalf();
+        image.write(
+                fileName.substring(0, fileName.indexOf(".jpg")) +
+                        "-modified" +
+                        ".jpg");
+    }
+
+    public static void testClearBlueOverValue(String fileName, int value) {
+        Picture image = new Picture(fileName);
+        image.clearBlueOverValue(value);
+        image.write(
+                fileName.substring(0, fileName.indexOf(".jpg")) +
+                        "-modified" +
+                        ".jpg");
+    }
+
+    public static void testGetAverageForColumn(String fileName, int column) {
+        Picture image = new Picture(fileName);
+        System.out.println("In file " + fileName + ", column " + column);
+        System.out.println("Avg color is (" +
+                image.getAverageForColumn(column)[0] + ", " + 
+                image.getAverageForColumn(column)[1] + ", " + 
+                image.getAverageForColumn(column)[2] + ")");
     }
 
 }
